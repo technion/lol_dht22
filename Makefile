@@ -1,6 +1,16 @@
+
+OBJS = dht22.o
+CFLAGS = -Wall -I/usr/local/include
+LDFLAGS = -lwiringPi
+
 all: loldht
 
-loldht: dht22.c
-	gcc -o loldht dht22.c -lwiringPi -Wall
+%.o: %.c
+	gcc -c $< $(CFLAGS)
+
+loldht: $(OBJS)
+	gcc -o loldht $(OBJS) $(LDFLAGS) $(CFLAGS)
 clean:
-	rm loldht
+	rm loldht $(OBJS)
+splint:
+	splint dht22.c -I/usr/local/include -shiftimplementation

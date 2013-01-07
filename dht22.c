@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <sys/types.h>
+
 #define MAXTIMINGS 85
 #define DHTPIN 7
 static int dht22_dat[5] = {0,0,0,0,0};
@@ -95,10 +98,16 @@ static int read_dht22_dat()
 int main (void)
 {
 
-  printf ("Raspberry Pi wiringPi DHT11 Temperature test program\n") ;
+  printf ("Raspberry Pi wiringPi DHT22 reader\n") ;
 
   if (wiringPiSetup () == -1)
-    exit (EXIT_FAILURE) ;
+    exit(EXIT_FAILURE) ;
+	
+  if (setuid(getuid()) < 0)
+  {
+    perror("Dropping privileges failed\n");
+    exit(EXIT_FAILURE);
+  }
 
   while (read_dht22_dat() == 0) 
   {
