@@ -1,6 +1,6 @@
 
 OBJS = dht22.o
-CFLAGS = -Wall -I/usr/local/include
+CFLAGS = -Wall -I/usr/local/include -fstack-protector -D_FORTIFY_SOURCE=2 -O2
 LDFLAGS = -lwiringPi
 
 all: loldht
@@ -13,4 +13,4 @@ loldht: $(OBJS)
 clean:
 	rm loldht $(OBJS)
 splint:
-	splint dht22.c -I/usr/local/include -shiftimplementation
+	splint dht22.c -warnposix -I/usr/local/include  -I/usr/include/arm-linux-gnueabihf -shiftimplementation
