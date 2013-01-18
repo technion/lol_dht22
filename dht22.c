@@ -1,4 +1,3 @@
-
 /*
  *      dht22.c:
  *	Simple test program to test the wiringPi functions
@@ -13,6 +12,8 @@
 #include <stdint.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include "locking.h"
 
 #define MAXTIMINGS 85
 #define DHTPIN 7
@@ -97,8 +98,11 @@ static int read_dht22_dat()
 
 int main (void)
 {
+  int lockfd;
 
-  printf ("Raspberry Pi wiringPi DHT22 reader\n") ;
+  printf ("Raspberry Pi wiringPi DHT22 reader\nwww.lolware.net\n") ;
+
+  lockfd = open_lockfile(LOCKFILE);
 
   if (wiringPiSetup () == -1)
     exit(EXIT_FAILURE) ;
@@ -113,6 +117,9 @@ int main (void)
   {
      delay(1000); // wait 1sec to refresh
   }
+
+  close_lockfile(lockfd);
+  delay(1500);
 
   return 0 ;
 }

@@ -68,7 +68,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_loldht_OBJECTS = dht22.$(OBJEXT)
+am_loldht_OBJECTS = dht22.$(OBJEXT) locking.$(OBJEXT)
 loldht_OBJECTS = $(am_loldht_OBJECTS)
 loldht_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -203,7 +203,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-loldht_SOURCES = dht22.c
+loldht_SOURCES = dht22.c locking.c
 AUTOMAKE_OPTIONS = foreign
 noinst_HEADERS = 
 all: config.h
@@ -311,6 +311,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dht22.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/locking.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -673,6 +674,7 @@ distclean-local:
 
 splint:
 	splint dht22.c -warnposix -I/usr/local/include  -I/usr/include/arm-linux-gnueabihf -shiftimplementation
+	splint locking.c -warnposix -I/usr/local/include  -I/usr/include/arm-linux-gnueabihf -unrecog
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
