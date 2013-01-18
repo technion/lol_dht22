@@ -15,7 +15,7 @@
 int open_lockfile(const char *filename)
 {
    int fd;
-   fd = open(filename, O_CREAT | O_RDONLY);
+   fd = open(filename, O_CREAT | O_RDONLY, 0600);
 
    if (fd < 0)
    {
