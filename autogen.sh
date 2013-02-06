@@ -1,27 +1,6 @@
 #!/bin/sh
 #
 
-warn() {
-	echo "WARNING: $@" 1>&2
-}
-
-case `uname -s` in
-Darwin)
-    LIBTOOLIZE=glibtoolize
-    ;;
-FreeBSD)
-    LIBTOOLIZE=libtoolize
-    ;;
-Linux)
-    LIBTOOLIZE=libtoolize
-    ;;
-SunOS)
-    LIBTOOLIZE=libtoolize
-    ;;
-*)
-    warn "unrecognized platform:" `uname -s`
-    LIBTOOLIZE=libtoolize
-esac
 
 automake_version=`automake --version | tr ' ' '\n' | egrep '^[0-9]\.[0-9a-z.-]+'`
 if [ -z "$automake_version" ] ; then
@@ -39,7 +18,6 @@ fi
 set -ex
 
 aclocal 
-#$LIBTOOLIZE --copy --force
 autoheader
 autoconf
 automake --add-missing --copy --foreign
