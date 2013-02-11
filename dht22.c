@@ -118,8 +118,8 @@ int main (void)
      delay(1000); // wait 1sec to refresh
   }
 
-  close_lockfile(lockfd);
   delay(1500);
+  close_lockfile(lockfd);
 
   return 0 ;
 }

@@ -28,12 +28,12 @@ int open_lockfile(const char *filename)
    {
       if(errno == EWOULDBLOCK)
       {
-         printf("Lock file is in use, waiting...\n");
-         /* No point handling a return value here. The remaining sleep can
-          * only be 0 or 1. Missing either is acceptable
+         printf("Lock file is in use, exiting...\n");
+         /* If the lockfile is in use, we COULD sleep and try again.
+          * However, a lockfile would more likely indicate an already runaway
+	  * process.
          */
-         (void)sleep(1);
-         continue;
+	 exit(EXIT_FAILURE);
       }
       perror("Flock failed");
       exit(EXIT_FAILURE); 
