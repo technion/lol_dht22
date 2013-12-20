@@ -16,7 +16,7 @@
 #include "locking.h"
 
 #define MAXTIMINGS 85
-#define DHTPIN 7
+static int DHTPIN = 7;
 static int dht22_dat[5] = {0,0,0,0,0};
 
 static uint8_t sizecvt(const int read)
@@ -98,9 +98,15 @@ static int read_dht22_dat()
   }
 }
 
-int main (void)
+int main (int argc, char *argv[])
 {
   int lockfd;
+
+  if (argc != 2)
+    printf ("usage: %s <pin>\ndescription: pin is the wiringPi pin number\nusing 7 (GPIO 4)\n",argv[0]);
+  else
+    DHTPIN = atoi(argv[1]);
+   
 
   printf ("Raspberry Pi wiringPi DHT22 reader\nwww.lolware.net\n") ;
 
