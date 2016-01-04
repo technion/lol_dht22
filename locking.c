@@ -31,9 +31,9 @@ int open_lockfile(const char *filename)
          printf("Lock file is in use, exiting...\n");
          /* If the lockfile is in use, we COULD sleep and try again.
           * However, a lockfile would more likely indicate an already runaway
-	  * process.
+	      * process.
          */
-	 exit(EXIT_FAILURE);
+	     exit(EXIT_FAILURE);
       }
       perror("Flock failed");
       exit(EXIT_FAILURE); 
