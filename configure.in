@@ -24,7 +24,7 @@ AS_IF([test "x$enable_secure" != "xno"], [
 
 
 AC_HEADER_STDC
-AC_CHECK_HEADER(wiringPi,wiringpi_h_found=yes)
+AC_CHECK_HEADER(wiringPi.h,wiringpi_h_found=yes)
 AS_IF([test x$wiringpi_h_found != "xyes"],
 	AC_CHECK_HEADER([/usr/local/include/wiringPi.h],
 		CFLAGS="${CFLAGS} -I/usr/local/include",
