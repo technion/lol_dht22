@@ -57,7 +57,7 @@ static int read_dht22_dat()
     counter = 0;
     while (sizecvt(digitalRead(DHTPIN)) == laststate) {
       counter++;
-      delayMicroseconds(1);
+      delayMicroseconds(2);
       if (counter == 255) {
         break;
       }
