@@ -100,16 +100,17 @@ static int read_dht22_dat()
 
 int main (int argc, char *argv[])
 {
-  int lockfd;
+  int lockfd = 0; //initialize to suppress warning
   int tries = 100;
+  int lock = 1;
 
   if (argc < 2)
-    printf ("usage: %s <pin> (<tries>)\ndescription: pin is the wiringPi pin number\nusing 7 (GPIO 4)\nOptional: tries is the number of times to try to obtain a read (default 100)",argv[0]);
+    printf ("usage: %s <pin> (<tries> <lock>)\ndescription: pin is the wiringPi pin number\nusing 7 (GPIO 4)\nOptional: tries is the number of times to try to obtain a read (default 100)\n          lock: 0 disables the lockfile (for running as non-root user)\n",argv[0]);
   else
     DHTPIN = atoi(argv[1]);
    
 
-  if (argc == 3)
+  if (argc >= 3)
     tries = atoi(argv[2]);
 
   if (tries < 1) {
@@ -117,9 +118,19 @@ int main (int argc, char *argv[])
     exit(EXIT_FAILURE);
   }
 
+
+  if (argc >= 4)
+    lock = atoi(argv[3]);
+
+  if (lock != 0 && lock != 1) {
+    printf("Invalid lock state supplied\n");
+    exit(EXIT_FAILURE);
+  }
+
   printf ("Raspberry Pi wiringPi DHT22 reader\nwww.lolware.net\n") ;
 
-  lockfd = open_lockfile(LOCKFILE);
+  if(lock)
+    lockfd = open_lockfile(LOCKFILE);
 
   if (wiringPiSetup () == -1)
     exit(EXIT_FAILURE) ;
@@ -136,7 +147,8 @@ int main (int argc, char *argv[])
   }
 
   delay(1500);
-  close_lockfile(lockfd);
+  if(lock)
+    close_lockfile(lockfd);
 
   return 0 ;
 }
