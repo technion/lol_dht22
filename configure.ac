@@ -1,5 +1,5 @@
-AC_INIT(lolware_dht, version-0.1)
-AM_INIT_AUTOMAKE(lolware_dht,0.0.1)
+AC_INIT(lolware_dht, [0.1])
+AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)
 AM_SILENT_RULES([yes])
 
