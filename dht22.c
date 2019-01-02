@@ -43,12 +43,9 @@ static int read_dht22_dat()
   // pull pin down for 18 milliseconds
   pinMode(DHTPIN, OUTPUT);
   digitalWrite(DHTPIN, HIGH);
-  delay(10);
+  delay(500);
   digitalWrite(DHTPIN, LOW);
-  delay(18);
-  // then pull it up for 40 microseconds
-  digitalWrite(DHTPIN, HIGH);
-  delayMicroseconds(40); 
+  delay(20);
   // prepare to read the pin
   pinMode(DHTPIN, INPUT);
 
